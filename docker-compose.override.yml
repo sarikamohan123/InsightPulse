@@ -1,0 +1,35 @@
+# Local development overrides.
+# Applied automatically by Docker Compose alongside docker-compose.yml.
+# Adds: hot reload, source volume mounts, exposed ports for host access.
+
+services:
+  db:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"
+
+  backend:
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+
+  worker:
+    command: >
+      watchmedo auto-restart --directory=./app --pattern=*.py --recursive --
+      celery -A app.workers.celery_app worker --loglevel=info
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"

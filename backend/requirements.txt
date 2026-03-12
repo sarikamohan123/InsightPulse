@@ -1,0 +1,30 @@
+# Web framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# Database
+sqlalchemy[asyncio]==2.0.36
+asyncpg==0.30.0
+alembic==1.14.0
+
+# Config
+pydantic-settings==2.6.1
+
+# Auth
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Task queue
+celery[redis]==5.4.0
+redis==5.2.0
+
+# Worker autoreload (used in docker-compose.override.yml)
+watchdog==5.0.3
+
+# Testing
+pytest==8.3.3
+pytest-asyncio==0.24.0
+pytest-cov==6.0.0
+pytest-env==1.1.5
+httpx==0.27.2
+anyio==4.6.2

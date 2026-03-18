@@ -1,6 +1,6 @@
 # SentimentPulse — Phase Progress Tracker
 
-Last updated: 2026-03-11
+Last updated: 2026-03-18
 
 ---
 
@@ -8,10 +8,10 @@ Last updated: 2026-03-11
 
 - [x] Docker Compose (base + override)
 - [x] Full documentation suite (docs/)
-- [ ] `memory/PROGRESS.md` created ← in progress
-- [ ] Backend scaffold (Dockerfile, requirements.txt, .env.example, pytest.ini)
-- [ ] App core (main.py, config.py, security.py, exceptions.py)
-- [ ] DB layer (session.py, base model, SQLAlchemy models)
+- [x] `memory/PROGRESS.md` created
+- [x] Backend scaffold (Dockerfile, requirements.txt, .env.example, pytest.ini)
+- [x] App core (main.py, config.py, security.py, exceptions.py)
+- [x] DB layer (session.py, base model, SQLAlchemy models)
 - [ ] Alembic scaffold + initial migration
 - [ ] Auth stack (schemas → repo → service → router)
 - [ ] `api/deps.py` composition root

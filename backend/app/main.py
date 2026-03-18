@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
+from app.api.v1 import auth
 from app.core.config import get_settings
 from app.core.exceptions import AppException
 
@@ -26,9 +27,7 @@ def create_app() -> FastAPI:
     async def health() -> dict:
         return {"status": "ok"}
 
-    # Routers registered here as phases are implemented
-    # from app.api.v1 import auth
-    # app.include_router(auth.router, prefix="/api/v1")
+    app.include_router(auth.router, prefix="/api/v1")
 
     return app
 

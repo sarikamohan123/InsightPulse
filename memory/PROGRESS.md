@@ -13,8 +13,8 @@ Last updated: 2026-03-18
 - [x] App core (main.py, config.py, security.py, exceptions.py)
 - [x] DB layer (session.py, base model, SQLAlchemy models)
 - [x] Alembic scaffold + initial migration
-- [ ] Auth stack (schemas → repo → service → router)
-- [ ] `api/deps.py` composition root
+- [x] Auth stack (schemas → repo → service → router)
+- [x] `api/deps.py` composition root
 - [ ] Test scaffold (conftest.py + test_auth_flow.py)
 
 ---

@@ -12,7 +12,7 @@ Last updated: 2026-03-18
 - [x] Backend scaffold (Dockerfile, requirements.txt, .env.example, pytest.ini)
 - [x] App core (main.py, config.py, security.py, exceptions.py)
 - [x] DB layer (session.py, base model, SQLAlchemy models)
-- [ ] Alembic scaffold + initial migration
+- [x] Alembic scaffold + initial migration
 - [ ] Auth stack (schemas → repo → service → router)
 - [ ] `api/deps.py` composition root
 - [ ] Test scaffold (conftest.py + test_auth_flow.py)

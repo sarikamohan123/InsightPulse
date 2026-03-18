@@ -15,7 +15,7 @@ Last updated: 2026-03-18
 - [x] Alembic scaffold + initial migration
 - [x] Auth stack (schemas → repo → service → router)
 - [x] `api/deps.py` composition root
-- [ ] Test scaffold (conftest.py + test_auth_flow.py)
+- [x] Test scaffold (conftest.py + test_auth_flow.py)
 
 ---
 

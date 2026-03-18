@@ -15,14 +15,17 @@ from app.repositories.refresh_token_repo import RefreshTokenRepository
 from app.repositories.user_repo import UserRepository
 from app.services.auth_service import AuthService
 
-_bearer = HTTPBearer()
+_bearer = HTTPBearer(auto_error=False)
 
 
 async def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(_bearer),
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer),
     session: AsyncSession = Depends(get_db),
     settings: Settings = Depends(get_settings),
 ) -> User:
+    if credentials is None:
+        raise UnauthorizedError("Authentication required.")
+
     try:
         payload = decode_token(credentials.credentials, settings)
     except JWTError:

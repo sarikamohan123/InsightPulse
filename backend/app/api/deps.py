@@ -1,4 +1,5 @@
 import uuid
+from uuid import UUID
 
 from fastapi import Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -34,7 +35,7 @@ async def get_current_user(
     if payload.get("type") != "access":
         raise UnauthorizedError("Invalid token type.")
 
-    user = await UserRepository(session).get_by_id(uuid.UUID(payload["sub"]))
+    user = await UserRepository(session).get_by_pk(uuid.UUID(payload["sub"]))
     if not user:
         raise UnauthorizedError("User not found.")
     if str(user.organization_id) != payload.get("org_id"):
@@ -43,6 +44,12 @@ async def get_current_user(
         raise ForbiddenError("Account is deactivated.")
 
     return user
+
+
+async def get_organization_id(
+    current_user: User = Depends(get_current_user),
+) -> UUID:
+    return current_user.organization_id
 
 
 async def require_admin(

@@ -80,21 +80,40 @@ _TEST_ORG = "Acme Corp"
 
 
 @pytest_asyncio.fixture
-async def auth_headers(client):
-    await client.post(
-        "/api/v1/auth/register",
-        json={
-            "email": _TEST_EMAIL,
-            "password": _TEST_PASSWORD,
-            "organization_name": _TEST_ORG,
-        },
-    )
-    resp = await client.post(
-        "/api/v1/auth/login",
-        json={"email": _TEST_EMAIL, "password": _TEST_PASSWORD},
-    )
-    token = resp.json()["access_token"]
-    return {"Authorization": f"Bearer {token}"}
+async def make_auth_headers(client):
+    """
+    Factory fixture for creating authenticated headers for any org/user.
+    Returns (headers_dict, org_id_str) — both needed for isolation tests.
+    """
+    from jose import jwt as _jwt
+
+    settings = get_settings()
+
+    async def _make(email: str, password: str, org_name: str):
+        await client.post(
+            "/api/v1/auth/register",
+            json={"email": email, "password": password, "organization_name": org_name},
+        )
+        resp = await client.post(
+            "/api/v1/auth/login",
+            json={"email": email, "password": password},
+        )
+        access_token = resp.json()["access_token"]
+        payload = _jwt.decode(
+            access_token,
+            settings.jwt_secret_key,
+            algorithms=[settings.jwt_algorithm],
+        )
+        headers = {"Authorization": f"Bearer {access_token}"}
+        return headers, payload["org_id"]
+
+    return _make
+
+
+@pytest_asyncio.fixture
+async def auth_headers(make_auth_headers):
+    headers, _ = await make_auth_headers(_TEST_EMAIL, _TEST_PASSWORD, _TEST_ORG)
+    return headers
 
 
 # ---------------------------------------------------------------------------

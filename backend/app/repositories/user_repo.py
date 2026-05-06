@@ -7,6 +7,7 @@ from app.repositories.base import BaseRepository
 
 
 class UserRepository(BaseRepository[User]):
+    model = User
 
     async def create(
         self,
@@ -27,12 +28,14 @@ class UserRepository(BaseRepository[User]):
         return user
 
     async def get_by_email(self, email: str) -> User | None:
+        # Auth-only: unscoped — email is unique globally, org not yet known at login
         result = await self.session.execute(
             select(User).where(User.email == email)
         )
         return result.scalar_one_or_none()
 
-    async def get_by_id(self, user_id: uuid.UUID) -> User | None:
+    async def get_by_pk(self, user_id: uuid.UUID) -> User | None:
+        # Auth-only: unscoped — used in deps.get_current_user before org is verified
         result = await self.session.execute(
             select(User).where(User.id == user_id)
         )

@@ -1,6 +1,6 @@
 # SentimentPulse — Phase Progress Tracker
 
-Last updated: 2026-03-18
+Last updated: 2026-03-22
 
 ---
 
@@ -21,8 +21,8 @@ Last updated: 2026-03-18
 
 ## Phase 2 — Multi-tenancy
 
-- [ ] Org isolation enforcement at repo layer
-- [ ] `test_org_isolation.py` covering all tenant-owned repos
+- [x] Org isolation enforcement at repo layer
+- [x] `test_org_isolation.py` covering all tenant-owned repos
 
 ---
 

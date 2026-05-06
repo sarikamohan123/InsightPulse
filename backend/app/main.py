@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from app.api.v1 import auth
+from app.api.v1 import auth, reviews, sources
 from app.core.config import get_settings
 from app.core.exceptions import AppException
 
@@ -28,6 +28,8 @@ def create_app() -> FastAPI:
         return {"status": "ok"}
 
     app.include_router(auth.router, prefix="/api/v1")
+    app.include_router(sources.router, prefix="/api/v1")
+    app.include_router(reviews.router, prefix="/api/v1")
 
     return app
 

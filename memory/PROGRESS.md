@@ -1,6 +1,6 @@
 # SentimentPulse — Phase Progress Tracker
 
-Last updated: 2026-03-22
+Last updated: 2026-05-05
 
 ---
 
@@ -28,10 +28,10 @@ Last updated: 2026-03-22
 
 ## Phase 3 — Review Ingestion
 
-- [ ] CSV upload endpoint
-- [ ] ReviewSource CRUD
-- [ ] Review repository + service
-- [ ] `test_review_ingestion.py`
+- [x] CSV upload endpoint
+- [x] ReviewSource CRUD
+- [x] Review repository + service
+- [x] `test_review_ingestion.py`
 
 ---
 

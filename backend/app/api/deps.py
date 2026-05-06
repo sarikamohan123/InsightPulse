@@ -11,10 +11,14 @@ from app.core.exceptions import ForbiddenError, UnauthorizedError
 from app.core.security import decode_token
 from app.db.session import get_db
 from app.models.user import User, UserRole
+from app.providers.sources.csv_provider import CSVSourceProvider
 from app.repositories.org_repo import OrgRepository
 from app.repositories.refresh_token_repo import RefreshTokenRepository
+from app.repositories.review_repo import ReviewRepository
+from app.repositories.review_source_repo import ReviewSourceRepository
 from app.repositories.user_repo import UserRepository
 from app.services.auth_service import AuthService
+from app.services.review_service import ReviewService
 
 _bearer = HTTPBearer(auto_error=False)
 
@@ -69,4 +73,14 @@ def get_auth_service(
         user_repo=UserRepository(session),
         token_repo=RefreshTokenRepository(session),
         settings=settings,
+    )
+
+
+def get_review_service(
+    session: AsyncSession = Depends(get_db),
+) -> ReviewService:
+    return ReviewService(
+        source_repo=ReviewSourceRepository(session),
+        review_repo=ReviewRepository(session),
+        source_provider=CSVSourceProvider(),
     )
